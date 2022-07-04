@@ -14,6 +14,7 @@ Constraints...
     message consists of lowercase English letters and ' '.
 
 """
+import string
 
 def decodeMessage(key: str, message: str) -> str:
     
@@ -27,10 +28,20 @@ def decodeMessage(key: str, message: str) -> str:
     for char in key:
         if char not in dedup_key:
             dedup_key.append(char)
-    return(dedup_key)
+#    return(dedup_key)
+
+    # now write out the substitution using a dict
+    sub_matrix = {}
+    for i, j in zip(dedup_key, string.ascii_lowercase):
+        sub_matrix[i]=j
+    sub_matrix[' ']=' ' # there was no element in key for spaces
+    return ''.join(sub_matrix[i] for i in message)
+
+
+
 
 key = "the quick brown fox jumps over the lazy dog"
-message = "vkbs bs t suepuv"
+message = "vkbs s uepuv"
 
 print(decodeMessage(key, message))
 
